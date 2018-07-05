@@ -39,7 +39,7 @@ public class AddMember extends AppCompatActivity {
     private Spinner spinner;
     private static final String[] paths = {"Janakpuri D Block", "Kirti Nagar", "Sagarpur"};
     private TextView mJoinDate;
-    private EditText et_Amount, et_name, et_mobile, et_amount, et_months;
+    private EditText et_Amount, et_name, et_mobile, et_months;
     private RadioGroup radioGroup;
     private Button btn_add;
     private ArrayAdapter<String> sAdapter;
@@ -103,8 +103,13 @@ public class AddMember extends AppCompatActivity {
                 AppExecutors.getInstance().diskIO().execute(new Runnable() {
                     @Override
                     public void run() {
-                        Member member =mDatabase.gymDao().loadMemberById(mTaskId);
-                        populateUi(member);
+                        final Member member =mDatabase.gymDao().loadMemberById(mTaskId);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                populateUi(member);
+                            }
+                        });
                     }
                 });
             }
@@ -155,7 +160,6 @@ public class AddMember extends AppCompatActivity {
                     case R.id.rb_female:
                         gender = "Female";
                         break;
-
                 }
             }
         });
@@ -166,12 +170,10 @@ public class AddMember extends AppCompatActivity {
         if(member == null){
             return;
         }
-
-        et_Amount.setText(member.getAmount());
         et_name.setText(member.getName());
+        et_Amount.setText(String.valueOf(member.getAmount()));
         et_mobile.setText(member.getMobile());
-        et_amount.setText(member.getAmount());
-        et_months.setText(member.getMonths());
+        et_months.setText(String.valueOf(member.getMonths()));
         int spos = sAdapter.getPosition(member.getBranch());
         spinner.setSelection(spos);
 

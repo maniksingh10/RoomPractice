@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 
 import com.manik.gymmembership.AppDatabase.AppDatabase;
 import com.manik.gymmembership.AppDatabase.Member;
@@ -86,6 +87,13 @@ public class DisplayMembers extends AppCompatActivity implements RecAdapter.Item
 
         Intent intent = new Intent(DisplayMembers.this, AddMember.class);
         intent.putExtra(AddMember.EXTRA_TASK_ID , itemId);
+        Log.v("Hereeeee", String.valueOf(itemId));
+        startActivity(intent);
+    }
+
+    public void onBackPressed() {
+        Intent intent = new Intent(DisplayMembers.this, MainActivity.class);
+        finish();
         startActivity(intent);
     }
 }
