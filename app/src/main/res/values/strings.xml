@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">GymMembership</string>
+    <string name="member_name_et">Enter New Member\'s Name</string>
+    <string name="branch">Branch</string>
+    <string name="bran">S</string>
+</resources>
